@@ -6,7 +6,6 @@ export async function sendMail(
     subject?: string,
     html?: string,
 ): Promise<boolean> {
-    // const account = await nodemailler.createTestAccount();
     return nodemailler
         .createTransport({
             service: 'Mailjet',
