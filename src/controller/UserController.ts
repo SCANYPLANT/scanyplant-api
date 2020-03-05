@@ -57,7 +57,7 @@ export class UserController {
                 nickname,
                 email,
             },
-            process.env.jwtSecret as string,
+            `${process.env.jwtSecret as string}`,
         );
         return await userRepository
             .save(user)
@@ -150,7 +150,7 @@ export class UserController {
                             nickname: user.nickname,
                             email: user.email,
                         },
-                        process.env.jwtSecret as string,
+                        `${process.env.jwtSecret as string}`,
                         { expiresIn: '1h' },
                     );
                     return response.status(200).json({ meta: { token } });

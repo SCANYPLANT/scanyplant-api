@@ -1,13 +1,16 @@
 version: "3.7"
 services:
-  Postgres:
+  postgres:
     image: postgres
     container_name: postgres
     restart: always
     ports:
       - 5436:5432
+    volumes:
+      - "../.data:/var/lib/postgresql/data"
+      - "../.docker/postgres.conf:/etc/postgresql/postgresql.conf"
     env_file:
-      - .env
+      - ../.env
   Adminer:
     image: adminer
     container_name: Adminer
@@ -16,6 +19,8 @@ services:
       - postgres:postgres
     ports:
       - 4444:8080
+    depends_on:
+      - postgres
   api:
     build: .
     container_name: scaniPlant
@@ -24,4 +29,6 @@ services:
     links:
       - postgres:postgres
     env_file:
-      - .env
+      - ../.env
+    depends_on:
+      - postgres

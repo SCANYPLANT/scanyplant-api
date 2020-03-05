@@ -35,7 +35,7 @@ passport.use(
     new JwtStrategy(
         {
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: process.env.jwtSecret,
+            secretOrKey: `${process.env.jwtSecret as string}`,
         },
         async (jwtPayload, next: Function) => {
             await getRepository(User)

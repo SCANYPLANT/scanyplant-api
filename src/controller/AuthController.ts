@@ -28,7 +28,7 @@ export class AuthController {
                 const { uuid, email, nickname } = await user;
                 const token = jwt.sign(
                     { uuid, email, nickname },
-                    process.env.jwtSecret as string,
+                    `${process.env.jwtSecret as string}`,
                     { expiresIn: '2h' },
                 );
             },
@@ -46,7 +46,7 @@ export class AuthController {
             .then(async (user: User) => {
                 const token = jwt.sign(
                     { uuid: user.uuid, email: user.email },
-                    process.env.jwtSecret as string,
+                    `${process.env.jwtSecret as string}`,
                     { expiresIn: '2h' },
                 );
                 return await sendMail(
