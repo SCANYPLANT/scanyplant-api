@@ -24,9 +24,10 @@ createConnection('default')
         app.use(passport.initialize());
         app.use(cacheControl({ noCache: true }));
         app.use(bodyParser.urlencoded({ extended: true }));
-        app.use(['/', '/api'], route);
+        app.get('/', route);
+        app.use(['/api'], route);
         server = app.listen(port, () => {
-            console.log(`server started at ${process.env.HOST}/api`);
+            console.log(`server started at ${process.env.HOST || `http://localhost:${port}`}/api`);
         });
     })
     .catch(error => console.log(error));

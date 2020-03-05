@@ -9,18 +9,17 @@ export async function sendMail(
     // const account = await nodemailler.createTestAccount();
     return nodemailler
         .createTransport({
-            service: 'gmail',
-            port: 2525,
+            service: 'Mailjet',
             auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASSWORD,
+                user: process.env.MJ_APIKEY_PUBLIC,
+                pass: process.env.MJ_APIKEY_PRIVATE,
             },
         })
         .sendMail({
-            from: process.env.GMAIL_EMAIL,
+            from: 'ibrahima.Dansoko@outlook.com',
             to: user.email,
             subject,
-            text: 'Mys3',
+            text: 'scanyPlant',
             html,
         })
         .then(() => {
