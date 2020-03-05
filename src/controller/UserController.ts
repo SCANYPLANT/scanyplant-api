@@ -46,9 +46,10 @@ export class UserController {
         response: Response,
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        const { firstName, email, password } = request.body;
+        const { firstName, lastName, email, password } = request.body;
         const user = new User();
         user.firstName = firstName;
+        user.lastName = lastName;
         user.email = email;
         user.password = password;
         user.password = user.hashPassword();
@@ -65,7 +66,7 @@ export class UserController {
                 return await sendMail(
                     user,
                     'Welcome',
-                    `<p>Hello ${user.firstName} welcome to scannyplant</p>`,
+                    `<p>Hello ${user.firstName} ${user.lastName} welcome to scannyplant</p>`,
                 )
                     .then(() => {
                         return response.json({ meta: { token } }).status(200);
@@ -104,12 +105,13 @@ export class UserController {
         response: Response,
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        const { firstName, email } = request.body;
+        const { firstName, lastName, email } = request.body;
         return await userRepository
             .createQueryBuilder()
             .update(User)
             .set({
                 firstName,
+                lastName,
                 email,
             })
             .where({ uuid: request.params.id })
@@ -148,6 +150,7 @@ export class UserController {
                         {
                             uuid: user.uuid,
                             firstName: user.firstName,
+                            lastName: user.lastName,
                             email: user.email,
                         },
                         `${process.env.jwtSecret as string}`,
@@ -161,7 +164,7 @@ export class UserController {
         } else {
             return response
                 .status(500)
-                .json({ error: "password don't match with passwordConfirm" });
+                .json({ error: 'password don\'t match with passwordConfirm' });
         }
     };
 }
