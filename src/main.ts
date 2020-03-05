@@ -10,7 +10,7 @@ import * as http from 'http';
 import passport from 'passport';
 import helmet from 'helmet';
 
-config(); // add dotEnv
+config(); // init dotEnv
 
 const app: Express.Express = Express();
 export let server: http.Server;
@@ -27,7 +27,10 @@ createConnection('default')
         app.get('/', route);
         app.use(['/api'], route);
         server = app.listen(port, () => {
-            console.log(`server started at ${process.env.HOST || `http://localhost:${port}`}/api`);
+            console.log(
+                `server started at  ${process.env.HOST + ':' + port ||
+                    `http://localhost:${port}`}/api`,
+            );
         });
     })
     .catch(error => console.log(error));

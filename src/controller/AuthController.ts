@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
-import { User } from '../entity/User';
+import { User } from '../entity/User.entity';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
@@ -25,9 +25,9 @@ export class AuthController {
                 if (err) {
                     return response.status(400).json({ error: err });
                 }
-                const { uuid, email, nickname } = await user;
+                const { uuid, email, firstName } = await user;
                 const token = jwt.sign(
-                    { uuid, email, nickname },
+                    { uuid, email, firstName },
                     `${process.env.jwtSecret as string}`,
                     { expiresIn: '2h' },
                 );
@@ -53,7 +53,7 @@ export class AuthController {
                     user,
                     'Changing your password',
                     `
-<p>Hello ${user.nickname}, to change your password please click on the link </p>
+<p>Hello ${user.firstName}, to change your password please click on the link </p>
 <a type="button" href="http://localhost:4200/#/changePassword?token=${token}">Click  </a>
  `,
                 )

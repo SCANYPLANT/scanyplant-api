@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
-import { User } from '../entity/User';
+import { User } from '../entity/User.entity';
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
 
@@ -46,15 +46,15 @@ export class UserController {
         response: Response,
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        const { nickname, email, password } = request.body;
+        const { firstName, email, password } = request.body;
         const user = new User();
-        user.nickname = nickname;
+        user.firstName = firstName;
         user.email = email;
         user.password = password;
         user.password = user.hashPassword();
         const token = jwt.sign(
             {
-                nickname,
+                firstName,
                 email,
             },
             `${process.env.jwtSecret as string}`,
@@ -65,7 +65,7 @@ export class UserController {
                 return await sendMail(
                     user,
                     'Welcome',
-                    `<p>Hello ${user.nickname} welcome to scannyplant</p>`,
+                    `<p>Hello ${user.firstName} welcome to scannyplant</p>`,
                 )
                     .then(() => {
                         return response.json({ meta: { token } }).status(200);
@@ -104,12 +104,12 @@ export class UserController {
         response: Response,
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        const { nickname, email } = request.body;
+        const { firstName, email } = request.body;
         return await userRepository
             .createQueryBuilder()
             .update(User)
             .set({
-                nickname,
+                firstName,
                 email,
             })
             .where({ uuid: request.params.id })
@@ -147,7 +147,7 @@ export class UserController {
                     const token = jwt.sign(
                         {
                             uuid: user.uuid,
-                            nickname: user.nickname,
+                            firstName: user.firstName,
                             email: user.email,
                         },
                         `${process.env.jwtSecret as string}`,

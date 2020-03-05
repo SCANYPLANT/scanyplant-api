@@ -1,5 +1,6 @@
 module.exports = [
     {
+        name: 'default',
         type: process.env.BDD_type,
         host: process.env.POSTGRES_HOST,
         port: process.env.POSTGRES_PORT,
@@ -10,9 +11,9 @@ module.exports = [
         dropSchema: false,
         logging: false,
         cache: true,
-        entities: ['dist/src/entity/**/*.entity.{ts,js}'],
-        migrations: ['dist/src/migration/**/*.{ts,js}'],
-        subscribers: ['dist/src/subscriber/**/*.{ts,js}'],
+        entities: ['src/entity/**/*.entity.{ts,js}'],
+        migrations: ['src/migration/**/*.{ts,js}'],
+        subscribers: ['src/subscriber/**/*.{ts,js}'],
         cli: {
             entitiesDir: 'src/entity',
             migrationsDir: 'src/migration',
@@ -20,7 +21,7 @@ module.exports = [
         },
     },
     {
-        name: 'Test',
+        name: 'test',
         type: process.env.BDD_type,
         host: process.env.POSTGRES_TEST_HOST,
         port: process.env.POSTGRES_TEST_PORT,

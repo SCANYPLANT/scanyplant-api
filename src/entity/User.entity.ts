@@ -4,14 +4,15 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    EventSubscriber,
+    EventSubscriber, OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
 import { IsDate, IsEmail, IsString, Length } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
+import { Plant } from './Plant.entity';
 
-@Entity()
+@Entity('User')
 @EventSubscriber()
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
@@ -20,7 +21,12 @@ export class User extends BaseEntity {
     @Column('text', { nullable: true })
     @Length(4, 20)
     @IsString()
-    nickname!: string;
+    firstName!: string;
+
+    @Column('text', { nullable: true })
+    @Length(4, 20)
+    @IsString()
+    lastName!: string;
 
     @Column('text', { nullable: true, unique: true })
     @IsEmail()
@@ -40,15 +46,15 @@ export class User extends BaseEntity {
     updatedAt!: Date;
 
     // parce que plusieurs utilisateurs peuvent se connecter sur un bucket
-    // @OneToMany(
-    //     () => Bucket,
-    //     bucket => bucket.user,
-    //     {
-    //         onDelete: 'CASCADE',
-    //         onUpdate: 'CASCADE',
-    //     },
-    // )
-    // buckets!: Bucket[];
+    @OneToMany(
+        () => Plant,
+        plant => plant.user,
+        {
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        },
+    )
+    plants!: Plant[];
 
     @BeforeInsert()
     hashPassword(salt = 5): string {
