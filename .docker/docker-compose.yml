@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  Postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5436:5432
+    env_file:
+      - .env
+  Adminer:
+    image: adminer
+    container_name: Adminer
+    restart: always
+    links:
+      - postgres:postgres
+    ports:
+      - 4444:8080
+  api:
+    build: .
+    container_name: scaniPlant
+    ports:
+      - 8084:8080
+    links:
+      - postgres:postgres
+    env_file:
+      - .env

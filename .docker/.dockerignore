@@ -1,0 +1,12 @@
+docker-compose.yml
+docker-compose.yml.dist
+#Dockerfile
+node_modules/
+.DS_Store
+.gitignore
+.git/
+yarn.lock
+README.md
+.crew
+.github/
+coverage/
