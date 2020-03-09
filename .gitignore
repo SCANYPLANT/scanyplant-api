@@ -8,6 +8,7 @@ temp/
 .idea
 .DS_Store
 .dataStorage
+.data
 # Created by https://www.gitignore.io/api/node,test
 # Edit at https://www.gitignore.io/?templates=node,test
 
