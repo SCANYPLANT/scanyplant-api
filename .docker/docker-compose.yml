@@ -1,34 +1,30 @@
-version: "3.7"
+version: '3.7'
 services:
-  postgres:
-    image: postgres
-    container_name: postgres
-    restart: always
-    ports:
-      - 5436:5432
-    volumes:
-      - "../.data:/var/lib/postgresql/data"
-      - "../.docker/postgres.conf:/etc/postgresql/postgresql.conf"
-    env_file:
-      - ../.env
-  Adminer:
-    image: adminer
-    container_name: Adminer
-    restart: always
-    links:
-      - postgres:postgres
-    ports:
-      - 4444:8080
-    depends_on:
-      - postgres
-#  api:
-#    build: .
-#    container_name: scaniPlant
-#    ports:
-#      - 8084:8080
-#    links:
-#      - postgres:postgres
-#    env_file:
-#      - ../.env
-#    depends_on:
-#      - postgres
+    postgres:
+        image: postgres
+        container_name: postgres
+        restart: always
+        ports:
+            - 5436:5432
+        volumes:
+            - '.data:/var/lib/postgresql/data'
+            - '../.docker/postgres.conf:/etc/postgresql/postgresql.conf'
+        env_file:
+            - ../.env
+    Adminer:
+        image: adminer
+        container_name: Adminer
+        restart: always
+        links:
+            - postgres:postgres
+        ports:
+            - 4444:8080
+        depends_on:
+            - postgres
+    api:
+        build: .
+        container_name: api
+        ports:
+            - 8084:8080
+        env_file:
+            - ../.env

@@ -4,7 +4,7 @@ import { User } from '../entity/User.entity';
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
 
-export class UserController {
+export default class UserController {
     private static userRepository: Repository<User>;
 
     constructor() {
@@ -164,7 +164,7 @@ export class UserController {
         } else {
             return response
                 .status(500)
-                .json({ error: 'password don\'t match with passwordConfirm' });
+                .json({ error: "password don't match with passwordConfirm" });
         }
     };
 }

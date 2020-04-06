@@ -1,8 +1,6 @@
 import Express, { Router } from 'express';
-// import { UserRoutes } from './userRoutes';
 import user from './userRoutes';
 import auth from './authRoutes';
-import { UserController } from '../controller/UserController';
 
 const api = Router();
 

@@ -15,4 +15,5 @@ module.exports = {
     bracketSpacing: true,
     // include parentheses around a sole arrow function parameter.
     arrowParens: 'avoid',
+    allowTemplateLiterals: true,
 };

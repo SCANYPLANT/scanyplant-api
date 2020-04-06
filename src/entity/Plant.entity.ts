@@ -8,7 +8,7 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
 } from 'typeorm';
 import { IsDate, IsDecimal, IsString, Length } from 'class-validator';
 import { User } from './User.entity';

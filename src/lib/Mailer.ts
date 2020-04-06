@@ -24,7 +24,7 @@ export async function sendMail(
         .then(() => {
             return true;
         })
-        .catch((error) => {
+        .catch(error => {
             console.log(error);
             return false;
         });

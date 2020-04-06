@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
 import { toLower } from 'lodash';
 
-export class AuthController {
+export default class AuthController {
     private static userRepository: Repository<User>;
 
     constructor() {

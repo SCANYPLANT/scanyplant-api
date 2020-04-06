@@ -4,7 +4,8 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    EventSubscriber, OneToMany,
+    EventSubscriber,
+    OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';

@@ -17,16 +17,14 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
-
-
     ],
     plugins: ['jest', 'prettier'],
     rules: {
+        'no-mixed-spaces-and-tabs': ['warn', 'smart-tabs'],
         'prettier/prettier': ['error', require('./prettier.config.js')],
-
         // Typescript stuff
         '@typescript-eslint/no-var-requires': 'off',
-        "@typescript-eslint/no-namespace": "off",
-
+        '@typescript-eslint/no-namespace': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
     },
 };
