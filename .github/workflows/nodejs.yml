@@ -16,7 +16,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   image: postgres
             - run: yarn
-            - run: cp .env.model .env
+            - run: cp .env.sample .env
             # - run: docker-compose -f .docker/docker-compose.yml  up
             - run: yarn build
               # - run: yarn test
