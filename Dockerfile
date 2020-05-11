@@ -5,9 +5,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN yarn install
 
-COPY . .
+COPY .docker .
 
 RUN ls -la
 
 EXPOSE 8080
-CMD [ "node", "." ]
+CMD [ "ts-node", "." ]

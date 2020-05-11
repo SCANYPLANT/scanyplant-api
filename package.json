@@ -30,25 +30,29 @@
         "npm": ">=6.13.4",
         "yarn": ">=1.19.x"
     },
+    "keywords": [
+        "heroku"
+    ],
     "dependencies": {
+        "apollo-server": "^2.13.0",
         "chalk": "^3.0.0",
         "dotenv": "^8.2.0",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "type-graphql": "^1.0.0-rc.1"
     },
     "devDependencies": {
         "@babel/cli": "^7.7.7",
         "@babel/core": "^7.7.7",
         "@babel/node": "^7.7.7",
-        "@babel/plugin-proposal-class-properties": "^7.7.4",
-        "@babel/plugin-proposal-decorators": "^7.7.4",
+        "@babel/plugin-proposal-class-properties": "^7.8.3",
+        "@babel/plugin-proposal-decorators": "^7.8.3",
         "@babel/plugin-proposal-export-default-from": "^7.7.4",
-        "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
-        "@babel/plugin-proposal-optional-chaining": "^7.7.4",
-        "@babel/plugin-transform-runtime": "^7.7.6",
-        "@babel/preset-env": "^7.7.7",
-        "@babel/preset-typescript": "^7.7.7",
-        "@babel/runtime": "^7.7.7",
-        "@mhirba/eslint-config-base": "^1.4.2",
+        "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
+        "@babel/plugin-proposal-optional-chaining": "^7.9.0",
+        "@babel/plugin-transform-runtime": "^7.9.6",
+        "@babel/preset-env": "^7.9.6",
+        "@babel/preset-typescript": "^7.9.0",
+        "@babel/runtime": "^7.9.6",
         "@types/bcryptjs": "^2.4.2",
         "@types/body-parser": "^1.17.1",
         "@types/chai": "^4.2.4",
@@ -73,6 +77,11 @@
         "@typescript-eslint/eslint-plugin": "^2.11.0",
         "@typescript-eslint/parser": "^2.7.0",
         "babel-jest": "^24.9.0",
+        "axios": "^0.19.2",
+        "chalk": "^3.0.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "moment": "^2.24.0",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.1",
         "chai": "^4.2.0",
@@ -114,7 +123,7 @@
         "ts-jest": "^24.2.0",
         "ts-node": "3.3.0",
         "tsconfig-paths": "^3.9.0",
-        "typeorm": "^0.2.20",
+        "typeorm": "^0.2.24",
         "typescript": "3.3.3333",
         "uuid": "^3.3.3"
     }

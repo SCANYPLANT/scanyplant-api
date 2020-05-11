@@ -1,35 +1,47 @@
 {
     "compilerOptions": {
-        "target": "esnext",
+        "target": "es2017",
         "moduleResolution": "node",
+        "resolveJsonModule": true,
         "module": "commonjs",
-        "lib": ["esnext", "dom", "es6"],
+        "lib": [
+            "esnext",
+            "dom",
+            "es6"
+        ],
         "allowJs": false,
         "noEmit": true,
-        "skipLibCheck": true,
         "strict": true,
+        "skipLibCheck": true,
         "esModuleInterop": true,
+        "declaration": true,
+        "isolatedModules": false,
         "allowSyntheticDefaultImports": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "outDir": ".dist",
-        "declaration": true,
-        "isolatedModules": false,
         "sourceMap": true,
+        "outDir": ".dist",
         "rootDir": "./",
         "baseUrl": "./",
         "paths": {
-            "~core/*": ["src/core/*"]
+            "~core/*": [
+                "src/core/*"
+            ]
         }
     },
-    "files": ["types.d.ts"],
-    "include": ["src/**/*.ts", "types.d.ts"],
+    "files": [
+        "types.d.ts"
+    ],
+    "include": [
+        "src/**/*.ts",
+        "types.d.ts"
+    ],
     "exclude": [
         "node_modules",
         ".eslintrc.js",
         ".jestrc.js",
         "babel.config.js",
         "prettier.config.js",
-        "ormconfig.ts"
+        "ormconfig"
     ]
 }

@@ -24,7 +24,7 @@ class ExpressServer {
                     res.json({
                         root:
                             'Welcome on your app root endpoint ! Try to get /api now :) for look ',
-                        doc: 'go to /docs for documentation ',
+                        documentation: 'go to /docs for documentation ',
                     });
                 });
                 Middlewares(this.app);

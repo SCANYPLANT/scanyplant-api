@@ -22,7 +22,7 @@ services:
         depends_on:
             - postgres
     api:
-        build: .
+        build: ../.
         container_name: api
         ports:
             - 8084:8080
