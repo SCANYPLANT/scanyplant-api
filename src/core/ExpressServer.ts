@@ -17,7 +17,7 @@ class ExpressServer {
 
     public run(): void {
         const { PORT: port } = process.env;
-        createConnection('default')
+        createConnection(process.env.APP_ENV as string)
             .then(async () => {
                 // define default root
                 this.app.get('/', (req: Request, res: Response) => {
