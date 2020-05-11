@@ -9,6 +9,8 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 import api from '../../src/routes';
+import bodyParser from 'body-parser';
+import { graphqlExpress } from 'apollo-server-express/dist/expressApollo';
 
 class ExpressServer {
     // server | api instance
@@ -56,6 +58,11 @@ class ExpressServer {
                 // use routes
                 this.app.use('/api', api);
                 // open server
+                this.app.use(
+                    '/graphql',
+                    bodyParser.json(),
+                    //graphqlExpress(),
+                );
                 this.server.listen(port, () => {
                     console.log(
                         chalk.bold.magenta(
