@@ -11,8 +11,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { IsDate, IsDecimal, IsString, Length } from 'class-validator';
-import User from './User.entity';
-import Maintains from './Maintains.entity';
+import { Maintains, User } from './';
 
 @Entity('Plant')
 @EventSubscriber()

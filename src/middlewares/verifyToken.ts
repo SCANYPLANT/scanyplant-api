@@ -8,7 +8,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         jwt.verify(
             token,
             `${process.env.jwtSecret as string}`,
-            (err: Error) => {
+            (err: any) => {
                 if (err)
                     return res.status(500).send({
                         auth: false,

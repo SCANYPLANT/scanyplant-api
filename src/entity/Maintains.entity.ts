@@ -9,7 +9,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { IsDate, IsNumber } from 'class-validator';
-import { Plant } from './Plant.entity';
+import { Plant } from './index';
 
 @Entity('Maintains')
 @EventSubscriber()

@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
-import { User } from '../entity/User.entity';
+import { User } from '../entity';
 import { getRepository } from 'typeorm';
 
 passport.use(

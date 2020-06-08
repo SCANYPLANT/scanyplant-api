@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { IsDate, IsEmail, IsString, Length } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
-import Plant from './Plant.entity';
+import { Plant } from './';
 
 @Entity('User')
 @EventSubscriber()

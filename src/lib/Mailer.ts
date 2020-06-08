@@ -1,5 +1,5 @@
 import * as nodemailler from 'nodemailer';
-import { User } from '../entity/User.entity';
+import { User } from '../entity';
 
 export async function sendMail(
     user: User,

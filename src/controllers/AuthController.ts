@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
-import { User } from '../entity/User.entity';
+import { User } from '../entity';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
