@@ -13,7 +13,7 @@ import { Plant } from './Plant.entity';
 
 @Entity('Maintains')
 @EventSubscriber()
-export class Maintains extends BaseEntity {
+export default class Maintains extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid!: string;
 

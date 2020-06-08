@@ -11,11 +11,11 @@ import {
 } from 'typeorm';
 import { IsDate, IsEmail, IsString, Length } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
-import { Plant } from './Plant.entity';
+import Plant from './Plant.entity';
 
 @Entity('User')
 @EventSubscriber()
-export class User extends BaseEntity {
+export default class User extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid!: string;
 

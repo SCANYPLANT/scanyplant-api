@@ -4,8 +4,11 @@ import bodyParser from 'body-parser';
 import cacheControl from 'express-cache-controller';
 import cors from 'cors';
 import passport from 'passport';
+import path from 'path';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
-export const Middlewares = (app: Application): void => {
+export const middlewares = (app: Application): void => {
     app.use(
         cors({
             origin: '*', // after change to url website
@@ -17,4 +20,33 @@ export const Middlewares = (app: Application): void => {
     app.use(cacheControl({ noCache: true }));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+    // Swagger set up
+    const options = {
+        swaggerDefinition: {
+            openapi: '3.0.0',
+            info: {
+                title: 'Scanny Plant API  - Documentation',
+                description: 'Api Urgence 🙃',
+                version: '1.0.0',
+            },
+            servers: [
+                {
+                    url: `${process.env.HOST}${
+                        process.env.APP_ENV === 'dev'
+                            ? ':' + process.env.PORT || 4242
+                            : ''
+                    }/api/`,
+                },
+            ],
+        },
+        apis: [path.resolve(__dirname, '../controllers/*')],
+    };
+    const specs = swaggerJsdoc(options);
+    app.use('/api/docs', swaggerUi.serve);
+    app.get(
+        '/api/docs',
+        swaggerUi.setup(specs, {
+            explorer: true,
+        }),
+    );
 };

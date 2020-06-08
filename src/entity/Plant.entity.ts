@@ -11,12 +11,12 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { IsDate, IsDecimal, IsString, Length } from 'class-validator';
-import { User } from './User.entity';
-import { Maintains } from './Maintains.entity';
+import User from './User.entity';
+import Maintains from './Maintains.entity';
 
 @Entity('Plant')
 @EventSubscriber()
-export class Plant extends BaseEntity {
+export default class Plant extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid!: string;
 

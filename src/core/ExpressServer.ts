@@ -1,16 +1,13 @@
 import express, { Application, Request, Response } from 'express';
-import path from 'path';
 import { Server } from 'http';
 import chalk from 'chalk';
 import 'reflect-metadata';
-import { Middlewares } from './middlewares';
+import { middlewares } from './middlewares';
 import { createConnection } from 'typeorm';
-import swaggerJsdoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
 
 import api from '../../src/routes';
-import bodyParser from 'body-parser';
-import { graphqlExpress } from 'apollo-server-express/dist/expressApollo';
+
+//import graphqlServer from './GraphQLServer';
 
 class ExpressServer {
     // server | api instance
@@ -21,48 +18,16 @@ class ExpressServer {
         const { PORT: port } = process.env;
         createConnection(process.env.APP_ENV as string)
             .then(async () => {
-                // define default root
                 this.app.get('/', (req: Request, res: Response) => {
                     res.json({
                         root:
                             'Welcome on your app root endpoint ! Try to get /api now :) for look ',
-                        documentation: 'go to /docs for documentation ',
+                        documentation: 'go to /api/docs for documentation ',
                     });
                 });
-                Middlewares(this.app);
-                // Swagger set up
-                const options = {
-                    swaggerDefinition: {
-                        openapi: '3.0.0',
-                        info: {
-                            title: 'ScannyPlant APi - Documentation',
-                            description: 'Fetch data medicen wordpress',
-                            version: '1.0.0',
-                        },
-                        servers: [
-                            {
-                                url: `http://localhost:${port}/api/`,
-                            },
-                        ],
-                    },
-                    apis: [path.resolve(__dirname, '../controllers/*.ts')],
-                };
-                const specs = swaggerJsdoc(options);
-                this.app.use('/docs', swaggerUi.serve);
-                this.app.get(
-                    '/docs',
-                    swaggerUi.setup(specs, {
-                        explorer: true,
-                    }),
-                );
-                // use routes
+                middlewares(this.app);
                 this.app.use('/api', api);
-                // open server
-                this.app.use(
-                    '/graphql',
-                    bodyParser.json(),
-                    //graphqlExpress(),
-                );
+
                 this.server.listen(port, () => {
                     console.log(
                         chalk.bold.magenta(
@@ -71,7 +36,10 @@ class ExpressServer {
                     );
                 });
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error.message);
+                return error;
+            });
     }
 }
 
