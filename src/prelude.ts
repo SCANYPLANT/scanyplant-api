@@ -4,6 +4,8 @@ import { existsSync } from 'fs';
 import chalk from 'chalk';
 import { isEmpty } from 'lodash';
 
+if(process.env.APP_ENV === 'dev') {
+
 const envPathName = path.join(process.cwd(), '.env');
 
 // Define here every variable needed in your .env
@@ -30,4 +32,5 @@ if (existsSync(envPathName)) {
 } else {
     console.log(chalk.red.bold('Sorry an .env file is missing'));
     process.exit(42);
+}
 }

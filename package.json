@@ -34,6 +34,7 @@
         "heroku"
     ],
     "dependencies": {
+        "@types/lodash": "^4.14.150",
         "apollo-server": "^2.13.0",
         "apollo-server-express": "^2.13.0",
         "aws-sdk": "^2.691.0",
@@ -41,7 +42,7 @@
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "lodash": "^4.17.15",
-        "@types/lodash": "^4.14.150",
+        "pg-connection-string": "^2.2.3",
         "ts-node": "^8.10.2",
         "type-graphql": "^1.0.0-rc.1"
     },
