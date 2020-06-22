@@ -3,7 +3,7 @@ import path from 'path';
 import { existsSync } from 'fs';
 import chalk from 'chalk';
 import { isEmpty } from 'lodash';
-
+config();
 if(process.env.APP_ENV === 'dev') {
 
 const envPathName = path.join(process.cwd(), '.env');
@@ -13,7 +13,6 @@ const envPathName = path.join(process.cwd(), '.env');
 const neededValues = ['PORT'];
 
 if (existsSync(envPathName)) {
-    config();
 
     const missingValues = neededValues.filter(
         (v: string): boolean => !process.env[v],

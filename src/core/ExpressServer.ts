@@ -16,6 +16,7 @@ class ExpressServer {
 
     public run(): void {
         const { PORT: port } = process.env;
+        console.log(process.env.APP_ENV);
         createConnection(process.env.APP_ENV as string)
             .then(async () => {
                 this.app.get('/', (req: Request, res: Response) => {
