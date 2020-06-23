@@ -26,16 +26,12 @@ export const middlewares = (app: Application): void => {
             openapi: '3.0.0',
             info: {
                 title: 'Scanny Plant API  - Documentation',
-                description: 'Api Urgence 🙃',
+                description: 'Api Scanny Plant 🙃',
                 version: '1.0.0',
             },
             servers: [
                 {
-                    url: `${process.env.HOST}${
-                        process.env.APP_ENV === 'dev'
-                            ? ':' + process.env.PORT || 4242
-                            : ''
-                    }/api/`,
+                    url: `${process.env.HOST}${process.env.APP_ENV === 'dev' ? ':' + process.env.PORT || 3000 : ''}/api/`,
                 },
             ],
         },

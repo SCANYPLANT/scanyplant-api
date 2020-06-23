@@ -1,8 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
-import { User } from '../entity';
+
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
+import { User } from '../entity';
 
 export default class UserController {
     private static userRepository: Repository<User>;
@@ -45,8 +46,8 @@ export default class UserController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const userRepository: Repository<User> = getRepository(User);
         const { firstName, lastName, email, password } = request.body;
+        console.log(request.body)
         const user = new User();
         user.firstName = firstName;
         user.lastName = lastName;
@@ -60,7 +61,7 @@ export default class UserController {
             },
             `${process.env.jwtSecret as string}`,
         );
-        return await userRepository
+        return await getRepository(User)
             .save(user)
             .then(async () => {
                 return await sendMail(
