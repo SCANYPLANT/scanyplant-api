@@ -61,7 +61,7 @@ export default class UserController {
             },
             `${process.env.jwtSecret as string}`,
         );
-        return await getRepository(User)
+        return await getRepository(User, 'dev')
             .save(user)
             .then(async () => {
                 return await sendMail(
