@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { AuthController } from '../controllers';
+import passport from '../middlewares/passport';
 
 const api = Router();
 

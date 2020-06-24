@@ -12,7 +12,7 @@ passport.use(
             passwordField: 'password',
         },
         async (email: string, password: string, next: Function) => {
-            return await getRepository(User)
+            return await getRepository(User,process.env.APP_ENV)
                 .findOneOrFail({
                     select: ['uuid', 'firstName', 'email', 'password'],
                     where: { email },
@@ -38,7 +38,7 @@ passport.use(
             secretOrKey: `${process.env.jwtSecret as string}`,
         },
         async (jwtPayload, next: Function) => {
-            await getRepository(User)
+            await getRepository(User,process.env.APP_ENV)
                 .findOneOrFail({
                     where: {
                         uuid: jwtPayload.uuid,

@@ -4,7 +4,7 @@ import { User } from '../entity';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
-import { toLower } from 'lodash';
+import { isEmpty, toLower } from 'lodash';
 
 export default class AuthController {
     private static userRepository: Repository<User>;
@@ -25,12 +25,16 @@ export default class AuthController {
                 if (err) {
                     return response.status(400).json({ error: err });
                 }
+                isEmpty(request.body) && response.json({ status: 'Error object is empty', }).status(204);
                 const { uuid, email, firstName, lastName } = await user;
                 const token = jwt.sign(
                     { uuid, email, firstName, lastName },
                     `${process.env.jwtSecret as string}`,
                     { expiresIn: '2h' },
                 );
+                return response
+                    .json({ status: 'true', meta: { token } })
+                    .status(200);
             },
         )(request, response);
     };
