@@ -1,0 +1,21 @@
+<mjml>
+  <mj-body background-color="#ffffff">
+    <mj-section background-color="#ffffff" padding-bottom="0px" padding-top="0">
+      <mj-column vertical-align="top" width="100%">
+        <mj-image src="https://i.ibb.co/6gVWQ2s/image.png" alt="" align="center" border="none" width="600px" padding-left="0px" padding-right="0px" padding-bottom="0px" padding-top="0"></mj-image>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#22577a"  padding-bottom="0px" padding-top="0px">
+      <mj-column vertical-align="top" width="100%">
+
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#22577a" padding-bottom="20px" padding-top="20px">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text align="left" color="#ffffff" font-size="22px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"><span style="color:#57cc99">Dear [[FirstName]]</span><br /><br /> Welcome to SCANNYPLANT APP.</mj-text>
+        <mj-text align="left" color="#ffffff" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"></mj-text>
+        <mj-text align="left" color="#ffffff" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">Thanks, <br /> The ScannyPlant Team</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

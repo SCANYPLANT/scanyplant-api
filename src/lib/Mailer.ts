@@ -21,7 +21,8 @@ export async function sendMail(
             text: 'scanyPlant',
             html,
         })
-        .then(() => {
+        .then((e) => {
+            console.log(e)
             return true;
         })
         .catch(error => {
