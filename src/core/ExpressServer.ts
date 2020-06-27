@@ -16,7 +16,6 @@ class ExpressServer {
 
     public run(): void {
         const { PORT: port, APP_ENV: APP_ENV } = process.env;
-
         createConnection(`${APP_ENV ? APP_ENV : 'default'}`)
             .then(async () => {
                 this.app.get('/', (req: Request, res: Response) => {
