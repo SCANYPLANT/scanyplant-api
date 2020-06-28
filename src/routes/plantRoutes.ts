@@ -20,4 +20,6 @@ api.get(
 );
 api.post('/', multerMiddleware, PlantController.post);
 
+api.post('/search', PlantController.searchPlantByName);
+
 export default api;

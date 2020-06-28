@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { Plant } from '../entity';
+import axios from 'axios';
 
 export default class PlantController {
     private static plantRepository: Repository<Plant>;
@@ -42,10 +43,25 @@ export default class PlantController {
     static post = async (
         request: Request,
         response: Response,
-
     ): Promise<Response> => {
-        console.log(request.body);
+        console.log(request.body.benbeng);
         console.log(request.file);
         return response.json({ status: 'ok' });
+    };
+    // Get Post Plant
+    static searchPlantByName = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        const { name } = request.body;
+        const { TREFLE_URL, TREFLE_TOKEN } = process.env;
+        return await axios.get(`${TREFLE_URL}/plants?token=${TREFLE_TOKEN}&q=${name}`)
+            .then(async ({ data }) => {
+                return response.json({ data }).status(200);
+            })
+            .catch(async (error: Error) => {
+                return response.json(error).status(500);
+            });
+
     };
 }
