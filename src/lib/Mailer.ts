@@ -22,7 +22,7 @@ export async function sendMail(
             html,
         })
         .then((e) => {
-            console.log(e)
+            console.log(e);
             return true;
         })
         .catch(error => {
