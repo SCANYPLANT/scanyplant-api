@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import { Server } from 'http';
 import chalk from 'chalk';
 import 'reflect-metadata';
-import { middlewares } from './middlewares';
+import { serverOptions } from './serverOptions';
 import { createConnection } from 'typeorm';
 
 import api from '../../src/routes';
@@ -25,7 +25,7 @@ class ExpressServer {
                         documentation: 'go to /api/docs for documentation ',
                     });
                 });
-                middlewares(this.app);
+                serverOptions(this.app);
                 this.app.use('/api', api);
 
                 this.server.listen(port, () => {

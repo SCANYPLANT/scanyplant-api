@@ -5,10 +5,11 @@ import cacheControl from 'express-cache-controller';
 import cors from 'cors';
 import passport from 'passport';
 import path from 'path';
+
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
-export const middlewares = (app: Application): void => {
+export const serverOptions = (app: Application): void => {
     app.use(
         cors({
             origin: '*', // after change to url website

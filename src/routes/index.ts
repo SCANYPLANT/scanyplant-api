@@ -1,6 +1,7 @@
 import Express, { Router } from 'express';
 import user from './userRoutes';
 import auth from './authRoutes';
+import plant from './plantRoutes';
 
 const api = Router();
 
@@ -80,5 +81,6 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
 });
 api.use('/users', user);
 api.use('/auth', auth);
+api.use('/plant', plant);
 
 export default api;
