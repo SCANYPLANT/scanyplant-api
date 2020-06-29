@@ -10,7 +10,12 @@ module.exports = [
         synchronize: true,
         dropSchema: false,
         logging: false,
-        cache: true,
+        cache: {
+            type: 'redis',
+            options: {
+                url: process.env.REDISCLOUD_URL
+            },
+        },
         entities: [__dirname + 'dist/src/entity/**/*.entity.{ts,js}'],
         migrations: [__dirname + 'dist/src/migration/**/*.{ts,js}'],
         subscribers: [__dirname + 'dist/src/subscriber/**/*.{ts,js}'],
@@ -32,13 +37,12 @@ module.exports = [
         dropSchema: false,
         logging: console.log,
         cache: {
-            type: 'redis',
-            options: {
-                host: 'redis-12830.c233.eu-west-1-1.ec2.cloud.redislabs.com',
-                port: '12830',
-                password: 'FCdc37XeZ1CWE6oHZY9chWh4rbmFeJpf',
-                prefix: 'rediscloud'
-            },
+            "type": "redis",
+            "duration": 30000,
+            "options": {
+                url: process.env.REDISCLOUD_URL
+            }
+
         },
         entities: ['src/entity/**/*.entity.{ts,js}'],
         migrations: ['src/migration/**/*.{ts,js}'],
@@ -61,7 +65,12 @@ module.exports = [
         synchronize: true,
         dropSchema: false,
         logging: console.log,
-        cache: true,
+        cache: {
+            type: 'redis',
+            options: {
+               url: process.env.REDISCLOUD_URL
+            },
+        },
         entities: ['src/entity/**/*.entity.{ts,js}'],
         migrations: ['src/migration/**/*.{ts,js}'],
         subscribers: ['src/subscriber/**/*.{ts,js}'],
@@ -82,7 +91,12 @@ module.exports = [
         synchronize: false,
         dropSchema: false,
         logging: false,
-        cache: true,
+        cache: {
+            type: 'redis',
+            options: {
+                url: process.env.REDISCLOUD_URL
+            },
+        },
         entities: ['dist/src/entity/**/*.{ts,js}'],
         migrations: ['dist/src/migration/**/*.{ts,js}'],
         subscribers: ['dist/src/subscriber/**/*.{ts,js}'],

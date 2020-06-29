@@ -78,6 +78,21 @@ export default class PlantController {
             if (err) {
                 return response.json(err);
             } else {
+                if (data.Labels) {
+                    data.Labels.map(it => {
+                      if  (it.Parents == [
+                            {
+                                "Name": "Flower"
+                            },
+                            {
+                                "Name": "Plant"
+                            }
+                        ]) {
+                          console.log(it.Name)
+                      }
+                        });
+                }
+
                 return response.json(data);
             }
         });
