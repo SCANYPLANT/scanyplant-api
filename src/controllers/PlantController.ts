@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { Plant } from '../entity';
 import axios from 'axios';
+import aws from 'aws-sdk';
 
 export default class PlantController {
     private static plantRepository: Repository<Plant>;
@@ -63,5 +64,22 @@ export default class PlantController {
                 return response.json(error).status(500);
             });
 
+    };
+    // Get Post Plant
+    static searchPlantByImage = async (
+        request: Request,
+        response: Response,
+    ) => {
+        return new aws.Rekognition().detectLabels({
+            Image: {
+                Bytes: request.file.buffer
+            }
+        }, (err, data) => {
+            if (err) {
+                return response.json(err);
+            } else {
+                return response.json(data);
+            }
+        });
     };
 }

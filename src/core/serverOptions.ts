@@ -8,6 +8,7 @@ import path from 'path';
 
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import aws from 'aws-sdk';
 
 export const serverOptions = (app: Application): void => {
     app.use(
@@ -46,4 +47,11 @@ export const serverOptions = (app: Application): void => {
             explorer: true,
         }),
     );
+
+    // connect to AWS
+    aws.config.update({
+        secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+        accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
+        region: process.env.AWS_S3_REGION,
+    });
 };

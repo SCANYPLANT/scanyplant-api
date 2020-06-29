@@ -21,5 +21,6 @@ api.get(
 api.post('/', multerMiddleware, PlantController.post);
 
 api.post('/search', PlantController.searchPlantByName);
+api.post('/searchByImg', multerMiddleware,PlantController.searchPlantByImage);
 
 export default api;
