@@ -72,27 +72,18 @@ export default class PlantController {
     ) => {
         return new aws.Rekognition().detectLabels({
             Image: {
-                Bytes: request.file.buffer
-            }
+                Bytes: request.file.buffer,
+            },
+            MinConfidence: 90,
         }, (err, data) => {
             if (err) {
                 return response.json(err);
             } else {
                 if (data.Labels) {
                     data.Labels.map(it => {
-                      if  (it.Parents == [
-                            {
-                                "Name": "Flower"
-                            },
-                            {
-                                "Name": "Plant"
-                            }
-                        ]) {
-                          console.log(it.Name)
-                      }
+                          console.log(it)
                         });
                 }
-
                 return response.json(data);
             }
         });
