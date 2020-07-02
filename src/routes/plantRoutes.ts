@@ -22,5 +22,11 @@ api.post('/', multerMiddleware, PlantController.post);
 
 api.post('/searchByName', PlantController.searchPlantByName);
 api.post('/searchByImg', multerMiddleware,PlantController.searchPlantByImage);
+api.get(
+    '/trefle/:id',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    PlantController.oneTrefle,
+);
 
 export default api;

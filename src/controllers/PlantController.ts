@@ -31,13 +31,26 @@ export default class PlantController {
         return await plantRepository
             .findOne({
                 where: { uuid: request.params.id },
-                relations: ['buckets'],
             })
             .then(result => {
                 return response.json(result).status(200);
             })
             .catch(error => {
                 return response.status(500).json(error);
+            });
+    };
+    // Get Plant by id
+    static oneTrefle = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        const { TREFLE_URL, TREFLE_TOKEN } = process.env;
+        return await axios.get(`${TREFLE_URL}/plants/${request.params.id}?token=${TREFLE_TOKEN}`)
+            .then(async ({ data }) => {
+                return response.json({ data }).status(200);
+            })
+            .catch(async (error: Error) => {
+                return response.json(error).status(500);
             });
     };
     // Get Post Plant
@@ -70,21 +83,34 @@ export default class PlantController {
         request: Request,
         response: Response,
     ) => {
+        console.log(request.file);
         return new aws.Rekognition().detectLabels({
             Image: {
                 Bytes: request.file.buffer,
             },
             MinConfidence: 90,
-        }, (err, data) => {
+        }, async (err, data) => {
+
             if (err) {
                 return response.json(err);
             } else {
+                const { TREFLE_URL, TREFLE_TOKEN } = process.env;
                 if (data.Labels) {
+                    const arrayPlant: aws.Rekognition.Label[] = [];
                     data.Labels.map(it => {
-                          console.log(it)
+                        if (it.Parents && it.Parents.length >= 2) {
+                            return arrayPlant.push(it);
+                        }
+                    });
+                    return await axios.get(`${TREFLE_URL}/plants?token=${TREFLE_TOKEN}&q=${arrayPlant[0].Name}`)
+                        .then(async ({ data }) => {
+                            return response.status(200).json(data);
+                        })
+                        .catch(async (error: Error) => {
+                            return response.status(500).json(error);
                         });
+
                 }
-                return response.json(data);
             }
         });
     };
