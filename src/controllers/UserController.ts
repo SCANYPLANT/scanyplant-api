@@ -33,7 +33,25 @@ export default class UserController {
         return await userRepository
             .findOne({
                 where: { uuid: request.params.id },
-                relations: ['buckets'],
+                relations: ['plants'],
+            })
+            .then(result => {
+                return response.json(result).status(200);
+            })
+            .catch(error => {
+                return response.status(500).json(error);
+            });
+    };
+    // Get user by id
+    static checkUserInfo = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        const userRepository: Repository<User> = getRepository(User, process.env.APP_ENV);
+        console.log(request.user);
+        return await userRepository
+            .findOne({
+                where: { uuid: (request.user as any).uuid },
             })
             .then(result => {
                 return response.json(result).status(200);
@@ -110,7 +128,7 @@ p { display:block;margin:13px 0; }</style><!--[if mso]>
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const userRepository: Repository<User> = getRepository(User);
+        const userRepository: Repository<User> = getRepository(User, process.env.APP_ENV);
         const user = await userRepository.findOne({ uuid: request.params.id });
         return await userRepository
             .remove(user as User)
@@ -126,7 +144,7 @@ p { display:block;margin:13px 0; }</style><!--[if mso]>
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const userRepository: Repository<User> = getRepository(User);
+        const userRepository: Repository<User> = getRepository(User, process.env.APP_ENV);
         const { firstName, lastName, email } = request.body;
         return await userRepository
             .createQueryBuilder()
@@ -137,9 +155,18 @@ p { display:block;margin:13px 0; }</style><!--[if mso]>
                 email,
             })
             .where({ uuid: request.params.id })
+            .returning('*')
             .execute()
             .then(result => {
-                return response.status(200).json(result);
+                console.log('returning', result);
+                return response.status(200).json({
+                        uuid: result.raw[0].uuid,
+                        firstName: result.raw[0].firstName,
+                        lastName: result.raw[0].lastName,
+                        email: result.raw[0].email,
+                        createdAt: result.raw[0].createdAt,
+                        updatedAt: result.raw[0].updatedAt,
+                });
             })
             .catch(err => {
                 return response.status(500).json(err);
@@ -150,7 +177,7 @@ p { display:block;margin:13px 0; }</style><!--[if mso]>
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const userRepository: Repository<User> = getRepository(User);
+        const userRepository: Repository<User> = getRepository(User, process.env.APP_ENV);
         const { password, passwordConfirm } = request.body;
         if (password === passwordConfirm) {
             const userTemps = new User();

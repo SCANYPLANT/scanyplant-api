@@ -12,6 +12,12 @@ api.get(
     UserController.all,
 );
 api.get(
+    '/me',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    UserController.checkUserInfo,
+);
+api.get(
     '/:id',
     passport.authenticate('JwtStrategy', { session: false }),
     verifyToken,
