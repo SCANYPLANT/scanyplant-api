@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { Plant } from '../entity';
 import axios from 'axios';
 import aws from 'aws-sdk';
+import { merge } from 'lodash';
 
 export default class PlantController {
     private static plantRepository: Repository<Plant>;
@@ -83,7 +84,6 @@ export default class PlantController {
         request: Request,
         response: Response,
     ) => {
-        console.log(request.file);
         return new aws.Rekognition().detectLabels({
             Image: {
                 Bytes: request.file.buffer,
@@ -102,9 +102,17 @@ export default class PlantController {
                             return arrayPlant.push(it);
                         }
                     });
-                    return await axios.get(`${TREFLE_URL}/plants?token=${TREFLE_TOKEN}&q=${arrayPlant[0].Name}`)
-                        .then(async ({ data }) => {
-                            return response.status(200).json(data);
+
+                    return axios.get(`${TREFLE_URL}/plants?token=${TREFLE_TOKEN}&q=${arrayPlant[0].Name}`)
+                        .then(({ data }) => {
+                            // const newPlantData: any[] = [];
+                            // return data.slice(0, 2).map((item: { id: any; }) => {
+                            //     return axios.get(`${TREFLE_URL}/plants/${item.id}?token=${TREFLE_TOKEN}`)
+                            //         .then(rep => newPlantData.push(merge(item, { image: rep.data.images[0]?.url })))
+                            //         .catch(e => console.log(e))
+                            //         .finally(() => console.log(newPlantData));
+                            // });
+                            response.status(200).json(data)
                         })
                         .catch(async (error: Error) => {
                             return response.status(500).json(error);
