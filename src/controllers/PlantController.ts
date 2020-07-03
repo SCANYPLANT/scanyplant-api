@@ -112,7 +112,7 @@ export default class PlantController {
                             //         .catch(e => console.log(e))
                             //         .finally(() => console.log(newPlantData));
                             // });
-                            response.status(200).json(data)
+                            return response.status(200).json(data)
                         })
                         .catch(async (error: Error) => {
                             return response.status(500).json(error);
