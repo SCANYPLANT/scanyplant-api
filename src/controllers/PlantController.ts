@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { Plant } from '../entity';
 import axios from 'axios';
 import aws from 'aws-sdk';
-import { merge } from 'lodash';
 
 export default class PlantController {
     private static plantRepository: Repository<Plant>;
@@ -48,7 +47,7 @@ export default class PlantController {
         const { TREFLE_URL, TREFLE_TOKEN } = process.env;
         return await axios.get(`${TREFLE_URL}/plants/${request.params.id}?token=${TREFLE_TOKEN}`)
             .then(async ({ data }) => {
-                return response.json({ data }).status(200);
+                return response.json(data).status(200);
             })
             .catch(async (error: Error) => {
                 return response.json(error).status(500);
@@ -72,7 +71,7 @@ export default class PlantController {
         const { TREFLE_URL, TREFLE_TOKEN } = process.env;
         return await axios.get(`${TREFLE_URL}/plants?token=${TREFLE_TOKEN}&q=${name}`)
             .then(async ({ data }) => {
-                return response.json({ data }).status(200);
+                return response.json(data).status(200);
             })
             .catch(async (error: Error) => {
                 return response.json(error).status(500);
@@ -112,7 +111,7 @@ export default class PlantController {
                             //         .catch(e => console.log(e))
                             //         .finally(() => console.log(newPlantData));
                             // });
-                            return response.status(200).json(data)
+                            return response.status(200).json(data);
                         })
                         .catch(async (error: Error) => {
                             return response.status(500).json(error);
