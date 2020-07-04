@@ -179,6 +179,8 @@ p { display:block;margin:13px 0; }</style><!--[if mso]>
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User, process.env.APP_ENV);
         const { password, passwordConfirm } = request.body;
+        console.log(request.body)
+        console.log(request.user)
         if (password === passwordConfirm) {
             const userTemps = new User();
             userTemps.password = password;
