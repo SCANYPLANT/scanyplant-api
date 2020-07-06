@@ -18,7 +18,11 @@ api.get(
     verifyToken,
     PlantController.one,
 );
-api.post('/', multerMiddleware, PlantController.post);
+api.post('/',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    PlantController.post,
+);
 
 api.post('/searchByName', PlantController.searchPlantByName);
 api.post('/searchByImg', multerMiddleware,PlantController.searchPlantByImage);

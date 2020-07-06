@@ -24,12 +24,29 @@ export default class Plant extends BaseEntity {
     @IsString()
     name!: string;
 
-    @Column('decimal')
-    @IsDecimal()
-    size!: number;
+    @Column('text', { nullable: false })
+    @IsString()
+    brightness?: string;
 
-    @Column('date')
-    purchase!: Date;
+    @Column('text', { nullable: false })
+    @IsString()
+    nextWatering?: string;
+
+
+    @Column('text', { nullable: false })
+    @IsString()
+    repetition?: string;
+
+
+    @Column('text', { nullable: false })
+    @IsString()
+    shift?: string;
+
+
+    @Column('text', { nullable: false })
+    @IsString()
+    temperature?: string;
+
 
     @CreateDateColumn({ type: 'timestamp' })
     @IsDate()

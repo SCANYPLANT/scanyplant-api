@@ -1,8 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
-import { Plant } from '../entity';
+import { Plant, User } from '../entity';
 import axios from 'axios';
 import aws from 'aws-sdk';
+import jwt from 'jsonwebtoken';
 
 export default class PlantController {
     private static plantRepository: Repository<Plant>;
@@ -16,9 +17,11 @@ export default class PlantController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const plantRepository: Repository<Plant> = getRepository(Plant);
+        const plantRepository: Repository<Plant> = getRepository(Plant, process.env.APP_ENV);
         return await plantRepository
-            .find()
+            .find({
+                where: { uuid: (request.user as any).uuid },
+            })
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
     };
@@ -27,7 +30,7 @@ export default class PlantController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const plantRepository: Repository<Plant> = getRepository(Plant);
+        const plantRepository: Repository<Plant> = getRepository(Plant, process.env.APP_ENV);
         return await plantRepository
             .findOne({
                 where: { uuid: request.params.id },
@@ -58,9 +61,27 @@ export default class PlantController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        console.log(request.body.benbeng);
-        console.log(request.file);
-        return response.json({ status: 'ok' });
+        const { brightness, name, nextWatering, repetition, shift, temperature } = request.body;
+        const plant = new Plant();
+        plant.brightness = brightness;
+        plant.name = name;
+        plant.nextWatering = nextWatering;
+        plant.repetition = repetition;
+        plant.shift = shift;
+        plant.temperature = temperature;
+        plant.user= request.user as User
+
+        return await getRepository(Plant, process.env.APP_ENV)
+            .save(plant)
+            .then(async (plant) => {
+                const token = jwt.sign(
+                    plant,
+                    `${process.env.jwtSecret as string}`,
+                );
+                return response.status(200).json({ data: plant, meta:{token} });
+            }).catch((err: Error) => {
+                return response.json({ err }).status(500);
+            });
     };
     // Get Post Plant
     static searchPlantByName = async (
