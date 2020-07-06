@@ -47,9 +47,9 @@ export default class Plant extends BaseEntity {
     @IsString()
     temperature?: string;
 
-    @Column('text', { nullable: true })
+    @Column('text', { nullable: true ,array:true})
     @IsString()
-    images?: string;
+    images?: string[];
 
     @CreateDateColumn({ type: 'timestamp' })
     @IsDate()
