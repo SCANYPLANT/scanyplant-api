@@ -7,7 +7,7 @@ import multerMiddleware from '../middlewares/multer';
 const api = Router();
 
 api.get(
-    '/',
+    '',
     passport.authenticate('JwtStrategy', { session: false }),
     verifyToken,
     PlantController.all,

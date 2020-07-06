@@ -47,6 +47,9 @@ export default class Plant extends BaseEntity {
     @IsString()
     temperature?: string;
 
+    @Column('text', { nullable: true })
+    @IsString()
+    images?: string;
 
     @CreateDateColumn({ type: 'timestamp' })
     @IsDate()
@@ -55,6 +58,7 @@ export default class Plant extends BaseEntity {
     @UpdateDateColumn({ type: 'timestamp' })
     @IsDate()
     updatedAt!: Date;
+
 
     @ManyToOne(
         () => User,
@@ -69,15 +73,15 @@ export default class Plant extends BaseEntity {
     @JoinTable()
     user!: User;
 
-    @OneToMany(
-        () => Maintains,
-        maintains => maintains.uuid,
-        {
-            cascade: true,
-            eager: true,
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-        },
-    )
-    maintains!: Maintains[];
+    // @OneToMany(
+    //     () => Maintains,
+    //     maintains => maintains.uuid,
+    //     {
+    //         cascade: true,
+    //         eager: true,
+    //         onDelete: 'CASCADE',
+    //         onUpdate: 'CASCADE',
+    //     },
+    // )
+    // maintains!: Maintains[];
 }

@@ -17,13 +17,14 @@ export default class PlantController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const plantRepository: Repository<Plant> = getRepository(Plant, process.env.APP_ENV);
-        return await plantRepository
-            .find({
-                where: { uuid: (request.user as any).uuid },
+        return await getRepository(Plant, process.env.APP_ENV)
+            .find()
+            .then(result => {
+                return response.status(200).json(result);
             })
-            .then(result => response.json(result).status(200))
-            .catch(error => response.status(500).json(error));
+            .catch(error => {
+               return  response.status(500).json(error);
+            });
     };
     // Get Plant by id
     static one = async (
@@ -61,25 +62,23 @@ export default class PlantController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const { brightness, name, nextWatering, repetition, shift, temperature } = request.body;
+        const { brightness, name, nextWatering, repetition, shift, temperature,images } = request.body;
         const plant = new Plant();
         plant.brightness = brightness;
         plant.name = name;
         plant.nextWatering = nextWatering;
         plant.repetition = repetition;
         plant.shift = shift;
+        plant.images= images
         plant.temperature = temperature;
         plant.user= request.user as User
 
         return await getRepository(Plant, process.env.APP_ENV)
             .save(plant)
             .then(async (plant) => {
-                const token = jwt.sign(
-                    plant,
-                    `${process.env.jwtSecret as string}`,
-                );
-                return response.status(200).json({ data: plant, meta:{token} });
+                return response.status(200).json({ data: plant});
             }).catch((err: Error) => {
+                console.log(err)
                 return response.json({ err }).status(500);
             });
     };
