@@ -18,7 +18,7 @@ export default class PlantController {
         response: Response,
     ): Promise<Response> => {
         return await getRepository(Plant, process.env.APP_ENV)
-            .find()
+            .find({where: {user: request.user}})
             .then(result => {
                 return response.status(200).json(result);
             })
