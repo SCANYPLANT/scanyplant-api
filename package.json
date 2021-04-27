@@ -102,7 +102,7 @@
         "prettier": "^2.0.5",
         "prettier-eslint": "^11.0.0",
         "pretty-quick": "^2.0.1",
-        "redis": "^3.0.2",
+        "redis": "^3.1.1",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
         "serialize-javascript": "^4.0.0",
