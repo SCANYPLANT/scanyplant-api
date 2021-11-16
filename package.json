@@ -62,7 +62,7 @@
         "@typescript-eslint/parser": "^3.5.0",
         "apollo-server": "^2.15.1",
         "apollo-server-express": "^2.15.1",
-        "aws-sdk": "^2.707.0",
+        "aws-sdk": "^2.814.0",
         "axios": "^0.19.2",
         "babel-jest": "^26.1.0",
         "bcryptjs": "^2.4.3",
