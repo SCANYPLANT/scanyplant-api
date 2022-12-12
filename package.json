@@ -78,7 +78,7 @@
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-jest": "^23.17.1",
         "eslint-plugin-prettier": "^3.1.4",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "express-cache-controller": "^1.1.0",
         "express-validator": "^6.6.0",
         "helmet": "^3.23.3",
